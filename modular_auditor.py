@@ -1,10 +1,5 @@
 user_input = ""
 new_value = 0
-# while user_input != 'quit':
-#     if user_input == 'quit':
-#         print("Total Deliveries Processed ", inventory)
-#         print("Number of Failed/Rejected Entries ", rejected)
-#         break
 
 def get_valid_input():
     rejected = 0
@@ -13,10 +8,6 @@ def get_valid_input():
 
     if user_input.isdigit() & int(user_input) >= 0:
         return user_input
-        # inventory += int(user_input)
-        # if inventory > 500:
-        #     print("Inventory has exceeded 500 units")
-
     else:
         rejected += 1
         print("Error: this input is not valid")
@@ -29,5 +20,10 @@ def process_delivery(current_total, new_value):
 def calculate_tax(amount):
     amount = new_value * 1/10
     return amount
+
+def generate_report(total_units, failed_attempts):
+    if user_input == 'quit':
+        print("Total Deliveries Processed ", total_units)
+        print("Number of Failed/Rejected Entries ", failed_attempts)
 
 get_valid_input()
