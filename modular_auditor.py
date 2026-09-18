@@ -1,7 +1,3 @@
-inventory = 0
-user_input = ''
-rejected = 0
-
 # while user_input != 'quit':
 #     if user_input == 'quit':
 #         print("Total Deliveries Processed ", inventory)
@@ -9,12 +5,16 @@ rejected = 0
 #         break
 
 def get_valid_input():
+    rejected = 0
+
     user_input = input("Enter stock quantity: ")
-    if user_input.isdigit():
+
+    if user_input.isdigit() & user_input >= 0:
         return user_input
         # inventory += int(user_input)
         # if inventory > 500:
         #     print("Inventory has exceeded 500 units")
+
     else:
         rejected += 1
         print("Error: this input is not valid")
@@ -22,3 +22,6 @@ def get_valid_input():
 
 def process_delivery(current_total, new_value):
     new_value == current_total + int(user_input)
+    return new_value
+
+get_valid_input()
