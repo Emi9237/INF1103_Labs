@@ -42,3 +42,7 @@ while True:
     tax = calculate_tax(user_input)
 
     deliveries_processed += 1
+
+    if inventory > 500:
+        print("Inventory has exceeded 500 units")
+        break
