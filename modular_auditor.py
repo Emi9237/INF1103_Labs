@@ -1,29 +1,26 @@
-user_input = ""
-new_value = 0
+inventory = 0
+failed_attempts = 0
+deliveries_processed = 0
 
 def get_valid_input():
-    rejected = 0
-
     user_input = input("Enter stock quantity: ")
 
-    if user_input.isdigit() & int(user_input) >= 0:
+    if user_input == "quit":
+        return "quit"
+
+    if user_input.isdigit():
         return user_input
-    else:
-        rejected += 1
-        print("Error: this input is not valid")
-        return user_input == "quit"
+
+    print("Error: this input is not valid")
 
 def process_delivery(current_total, new_value):
-    new_value = current_total + int(user_input)
-    return new_value
+    new_total = current_total + new_value
+    return new_total
 
 def calculate_tax(amount):
-    amount = new_value * 1/10
-    return amount
+    tax = amount * 0.10
+    return tax
 
 def generate_report(total_units, failed_attempts):
-    if user_input == 'quit':
-        print("Total Deliveries Processed ", total_units)
-        print("Number of Failed/Rejected Entries ", failed_attempts)
-
-get_valid_input()
+    print("Total Deliveries Processed ", total_units)
+    print("Number of Failed/Rejected Entries ", failed_attempts)
