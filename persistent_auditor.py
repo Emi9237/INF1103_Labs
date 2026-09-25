@@ -1,9 +1,11 @@
 inventory = 0
 failed_attempts = 0
 deliveries_processed = 0
+new_transaction = []
 
 def get_valid_input():
     global failed_attempts
+    new_transaction
 
     while True:
         user_input = input("Enter stock quantity: ")
@@ -12,6 +14,7 @@ def get_valid_input():
             return "quit"
 
         elif user_input.isdigit():
+            new_transaction = [user_input]
             return int(user_input)
 
         else:
@@ -33,8 +36,8 @@ def generate_report(total_units, failed_attempts):
 def load_inventory():
     try:
         with open("inventory.txt", "r") as file:
-            orders = file.readlines()
-            print(orders)
+            inventory = file.readlines()
+            print(inventory)
     except:
         with open("inventory.txt", "x") as file:
             print("A new inventory file is created.")
