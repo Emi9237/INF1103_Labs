@@ -5,6 +5,7 @@ new_transaction = []
 
 def get_valid_input():
     global failed_attempts
+    global new_transaction
 
     while True:
         user_input = input("Enter stock quantity: ")
@@ -13,7 +14,8 @@ def get_valid_input():
             return "quit"
 
         elif user_input.isdigit():
-            new_transaction = [user_input]
+            new_transaction.append(user_input)
+            print(new_transaction)
             return int(user_input)
 
         else:
@@ -43,17 +45,19 @@ def load_inventory():
 
 def save_inventory(new_transaction, total_units):
     with open("inventory.txt", "a") as file:
-        file.writelines(new_transaction)
+        file.write("\n")
+        file.write(new_transaction)
+        file.write("\n")
         file.write(total_units)
 
-while True:
-    file = load_inventory()
+file = load_inventory()
 
+while True:
     user_input = get_valid_input()
 
     if user_input == "quit":
         generate_report(deliveries_processed, failed_attempts)
-        save_inventory(new_transaction, deliveries_processed)
+        save_inventory(str(new_transaction), str(deliveries_processed))
         break
 
     inventory = process_delivery(inventory, user_input)
