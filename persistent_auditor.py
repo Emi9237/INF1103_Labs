@@ -5,7 +5,6 @@ new_transaction = []
 
 def get_valid_input():
     global failed_attempts
-    new_transaction
 
     while True:
         user_input = input("Enter stock quantity: ")
@@ -42,6 +41,11 @@ def load_inventory():
         with open("inventory.txt", "x") as file:
             print("A new inventory file is created.")
 
+def save_inventory(new_transaction, total_units):
+    with open("inventory.txt", "a") as file:
+        file.writelines(new_transaction)
+        file.write(total_units)
+
 while True:
     file = load_inventory()
 
@@ -49,6 +53,7 @@ while True:
 
     if user_input == "quit":
         generate_report(deliveries_processed, failed_attempts)
+        save_inventory(new_transaction, deliveries_processed)
         break
 
     inventory = process_delivery(inventory, user_input)
