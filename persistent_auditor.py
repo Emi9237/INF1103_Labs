@@ -8,7 +8,7 @@ def get_valid_input():
     global new_transaction
 
     while True:
-        user_input = input("Enter stock quantity: ")
+        user_input = input("Enter stock quantity or 'quit': ")
 
         if user_input == "quit":
             return "quit"
@@ -45,10 +45,11 @@ def load_inventory():
 
 def save_inventory(new_transaction, total_units):
     with open("inventory.txt", "a") as file:
-        file.write("\n")
+        file.write("Transaction history list: ")
         file.write(new_transaction)
-        file.write("\n")
+        file.write("\nFinal total: ")
         file.write(total_units)
+        file.write("\n \n")
 
 file = load_inventory()
 
