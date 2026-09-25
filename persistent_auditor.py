@@ -2,6 +2,8 @@ inventory = 0
 failed_attempts = 0
 deliveries_processed = 0
 new_transaction = []
+old_transactions = []
+old_total = 0
 
 def get_valid_input():
     global failed_attempts
@@ -35,30 +37,63 @@ def generate_report(total_units, failed_attempts):
     print("Number of Failed/Rejected Entries:", failed_attempts)
 
 def load_inventory():
+    global old_transactions
+    global old_total
+
     try:
         with open("inventory.txt", "r") as file:
             inventory = file.readlines()
+
+            if len(inventory) == 0:
+                old_transactions = []
+                old_total = 0
+            else:
+                old_transactions = inventory[0]
+                old_total = inventory[1]
+
             print(inventory)
     except:
         with open("inventory.txt", "x") as file:
             print("A new inventory file is created.")
 
 def save_inventory(new_transaction, total_units):
-    with open("inventory.txt", "a") as file:
-        file.write("Transaction history list: ")
-        file.write(new_transaction)
-        file.write("\nFinal total: ")
-        file.write(total_units)
-        file.write("\n \n")
+    global old_transactions
+    global old_total
 
-file = load_inventory()
+    if old_transactions != []:
+
+        old_transactions = old_transactions.replace("Transaction history list: ", "")
+        old_transactions = old_transactions.strip()
+        old_transactions = old_transactions.strip("[]")
+
+        if old_transactions:
+            old_transactions = old_transactions.split(", ")
+
+            for i in range(len(old_transactions)):
+                old_transactions[i] = old_transactions[i].strip("'\"")
+
+        old_total = old_total.replace("Final total: ", "")
+        old_total = int(old_total.strip())
+
+    else:
+        old_total = 0
+
+    old_transactions.extend(new_transaction)
+
+    new_total = old_total + total_units
+
+    with open("inventory.txt", "w") as file:
+        file.write("Transaction history list: " + str(old_transactions) + "\n")
+        file.write("Final total: " + str(new_total))
+
+load_inventory()
 
 while True:
     user_input = get_valid_input()
 
     if user_input == "quit":
         generate_report(deliveries_processed, failed_attempts)
-        save_inventory(str(new_transaction), str(deliveries_processed))
+        save_inventory(new_transaction, deliveries_processed)
         break
 
     inventory = process_delivery(inventory, user_input)
