@@ -24,3 +24,17 @@ def add_product():
     with open("inventory.json", "w") as file:
         json.dump(inventory, file)
         print("\nProduct added successfully!\n")
+
+def update_stock():
+    print("\nUpdate Stock\n")
+    id_input = input("\nEnter Product ID: ")
+
+    for product in range(len(inventory)):
+        if id_input == product[0]:
+            print("\nProduct Found:\n Name: " + product[1] + "\nCurrent Stock: " + product[3] + "\n")
+
+    new_stock_input = input("\nNew Stock Quantity: ")
+
+    with open("inventory.json", "a") as file:
+        json.dumps(inventory, file)
+        print("\nStock updated successfully!\n")
