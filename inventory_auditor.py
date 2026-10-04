@@ -68,3 +68,9 @@ def load_inventory():
         inventory = [{}]
         print("\ninventory.json not found.")
         print("\nAn empty inventory is created.")
+
+def save_inventory():
+    with open("inventory.json", "w") as file:
+        json.dump(inventory, file)
+        print("\n\nSaving inventory...")
+        print("\nInventory saved successfully to inventory.json.")
