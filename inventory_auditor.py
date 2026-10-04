@@ -57,3 +57,14 @@ def display_all():
         for product in inventory:
             print("\nID: " + product[i]["ID"] + " | Name: " + product[i]["Name"] + " | Price: " + product[i]["Price"] + " | Stock: " + product[i]["Stock"])
     print("\n------------------------------------------------")
+
+def load_inventory():
+    try:
+        with open("inventory.json", "r") as file:
+            inventory = json.load(file)
+            print("inventory.json found.")
+            print("\nInventory loaded successfully.")
+    except:
+        inventory = [{}]
+        print("\ninventory.json not found.")
+        print("\nAn empty inventory is created.")
