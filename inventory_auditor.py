@@ -4,48 +4,126 @@ inventory = []
 # Do validation later e.g. same id, existing product
 def add_product(inventory):
     print("\nAdd New Product")
-    id_input = input("Product ID: ")
-    name_input = input("Product Name: ")
-    price_input = input("Price: ")
-    stock_input = input("Stock Quantity: ")
+    
+    while True:
+        id_input = input("Product ID: ")
+
+        if id_input == "":
+            print("\nPlease input a Product ID.\n")
+            continue
+        if not id_input.startswith("P"):
+            print("\nProduct ID must start with a 'P'. Please input a different Product ID.\n")
+            continue
+        for i in range(len(inventory)):
+            if id_input == inventory[i]["ID"]:
+                print("\nProduct ID: " + id_input + " already exists. Please input a different Product ID.")
+                break
+        else:
+            break
+
+    while True:
+        name_input = input("Product Name: ")
+        if name_input == "":
+            print("\nPlease input a Product Name.\n")
+            continue
+        else:
+            break
+
+    while True:
+        price_input = input("Price: ").replace("$", "")
+        if price_input == "":
+            print("\nPlease input a Price.\n")
+            continue
+        elif float(price_input) < 0:
+            print("\nNegative numbers are not valid. Please input a valid Price.\n")
+            continue
+        else:
+            break
+
+    while True:
+        stock_input = input("Stock Quantity: ")
+        if stock_input == "":
+            print("\nPlease input a Stock quantity.\n")
+            continue
+        elif int(stock_input) < 0:
+            print("\nNegative numbers are not valid. Please input a valid Stock quantity.\n")
+            continue
+        else:
+            break
 
     inventory.append({
         "ID": id_input,
         "Name": name_input,
-        "Price": price_input,
+        "Price": "$" + price_input,
         "Stock": stock_input
     })
     print("\nProduct added successfully!")
 
 def update_stock(inventory):
     print("\nUpdate Stock")
-    id_input = input("Enter Product ID: ")
 
-    for i in range(len(inventory)):
-        if id_input == inventory[i]["ID"]:
-            print("\nProduct Found:\nName: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
-            new_stock_input = input("\nNew Stock Quantity: ")
-            inventory[i]["Stock"] = new_stock_input
-    print("\nStock updated successfully!")
+    while True:
+        id_input = input("Enter Product ID: ")
+
+        if id_input == "":
+            print("\nPlease input a Product ID.\n")
+            continue
+
+        for i in range(len(inventory)):
+            if id_input == inventory[i]["ID"]:
+                print("\nProduct Found:\nName: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
+
+                while True:
+                    new_stock_input = input("\nNew Stock Quantity: ")
+                    if new_stock_input == "":
+                        print("\nPlease input a Stock quantity.\n")
+                    elif int(new_stock_input) < 0:
+                        print("\nNegative numbers are not valid. Please input a valid Stock quantity.\n")
+                    else:
+                        break
+
+                inventory[i]["Stock"] = new_stock_input
+                print("\nStock updated successfully!")
+                break
+        else:
+            print("\nProduct not found.\n")
+            continue
+        break 
 
 def search_product(inventory):
     print("\nSearch Product")
-    id_input = input("Enter Product ID: ")
-    
-    for i in range(len(inventory)):
-        if id_input == inventory[i]["ID"]:
-            print("\nProduct Found")
-            print("------------------------------------------------")
-            print("ID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
-            print("------------------------------------------------")
+
+    while True:
+        id_input = input("Enter Product ID: ")
+
+        if id_input == "":
+            print("\nPlease input a Product ID.\n")
+            continue
+        elif not id_input.startswith('P'):
+            print("\nProduct ID must start with a 'P'. Please input a different Product ID.\n")
+            continue
+
+        for i in range(len(inventory)):
+            if id_input == inventory[i]["ID"]:
+                print("\nProduct Found")
+                print("------------------------------------------------")
+                print("ID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
+                print("------------------------------------------------")
+                break
+        else:
+            print("\nProduct not found.\n")
+            continue
+        break
 
 def display_all(inventory):
     print("\nCurrent Inventory")
     print("------------------------------------------------")
-    # for i in range(len(inventory)):
-    for product in inventory:
-        print("ID: " + product["ID"] + " | Name: " + product["Name"] + " | Price: " + product["Price"] + " | Stock: " + product["Stock"])
-    print("------------------------------------------------")
+    if len(inventory) == 0:
+        print("There are no products in the inventory.")
+    else:
+        for product in inventory:
+            print("ID: " + product["ID"] + " | Name: " + product["Name"] + " | Price: " + product["Price"] + " | Stock: " + product["Stock"])
+        print("------------------------------------------------")
 
 def load_inventory():
     try:
