@@ -49,3 +49,11 @@ def search_product():
             print("\n------------------------------------------------")
             print("\nID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
             print("\n------------------------------------------------")
+
+def display_all():
+    print("\n\nCurrent Inventory")
+    print("\n------------------------------------------------")
+    for i in range(len(inventory)):
+        for product in inventory:
+            print("\nID: " + product[i]["ID"] + " | Name: " + product[i]["Name"] + " | Price: " + product[i]["Price"] + " | Stock: " + product[i]["Stock"])
+    print("\n------------------------------------------------")
