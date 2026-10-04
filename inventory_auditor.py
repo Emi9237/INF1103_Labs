@@ -8,7 +8,7 @@ inventory = [
 ]
 
 def add_product():
-    print("\nAdd New Product\n")
+    print("\n\nAdd New Product")
     id_input = input("\nProduct ID: ")
     name_input = input("\nProduct Name: ")
     price_input = input("\nPrice: ")
@@ -23,35 +23,29 @@ def add_product():
 
     with open("inventory.json", "w") as file:
         json.dump(inventory, file)
-        print("\nProduct added successfully!\n")
+        print("\n\nProduct added successfully!\n")
 
 def update_stock():
-    print("\nUpdate Stock\n")
+    print("\n\nUpdate Stock")
     id_input = input("\nEnter Product ID: ")
 
     for i in range(len(inventory)):
         if id_input == inventory[i]["ID"]:
-            print("\nProduct Found:\n Name: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
+            print("\n\nProduct Found:\n Name: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
             new_stock_input = input("\nNew Stock Quantity: ")
             inventory[i]["Stock"] = new_stock_input
 
     with open("inventory.json", "a") as file:
         json.dumps(inventory, file)
-        print("\nStock updated successfully!\n")
+        print("\n\nStock updated successfully!\n")
 
 def search_product():
-    print("\nSearch Product\n")
+    print("\n\nSearch Product")
     id_input = input("\nEnter Product ID: ")
     
-    for product in range(len(inventory)):
-        if id_input == product[0]:
-            print("\n\nProduct Found:")
-            print("------------------------------------------------")
-            print("ID: " + product[0] + "\nName: " + product[1] + "\nPrice: " + product[2] + "\nStock: " + product[3])
-            print("------------------------------------------------")
-    
-    new_stock_input = input("\nNew Stock Quantity: ")
-    
-    with open("inventory.json", "a") as file:
-        json.dumps(inventory, file)
-        print("\nStock updated successfully!\n")
+    for i in range(len(inventory)):
+        if id_input == inventory[i]["ID"]:
+            print("\n\nProduct Found")
+            print("\n------------------------------------------------")
+            print("\nID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
+            print("\n------------------------------------------------")
