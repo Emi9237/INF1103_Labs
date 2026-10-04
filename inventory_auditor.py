@@ -7,7 +7,7 @@ inventory = [
     {"ID": "P003", "Name": "Keyboard", "Price": "$45.00", "Stock": "25"}
 ]
 
-def add_product():
+def add_product(inventory):
     print("\n\nAdd New Product")
     id_input = input("\nProduct ID: ")
     name_input = input("\nProduct Name: ")
@@ -25,7 +25,7 @@ def add_product():
         json.dump(inventory, file)
         print("\n\nProduct added successfully!\n")
 
-def update_stock():
+def update_stock(inventory):
     print("\n\nUpdate Stock")
     id_input = input("\nEnter Product ID: ")
 
@@ -39,7 +39,7 @@ def update_stock():
         json.dumps(inventory, file)
         print("\n\nStock updated successfully!\n")
 
-def search_product():
+def search_product(inventory):
     print("\n\nSearch Product")
     id_input = input("\nEnter Product ID: ")
     
@@ -50,7 +50,7 @@ def search_product():
             print("\nID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
             print("\n------------------------------------------------")
 
-def display_all():
+def display_all(inventory):
     print("\n\nCurrent Inventory")
     print("\n------------------------------------------------")
     for i in range(len(inventory)):
@@ -69,14 +69,14 @@ def load_inventory():
         print("\ninventory.json not found.")
         print("\nAn empty inventory is created.")
 
-def save_inventory():
+def save_inventory(inventory):
     with open("inventory.json", "w") as file:
-        json.dump(inventory, file)
         print("\n\nSaving inventory...")
+        json.dump(inventory, file)
         print("\nInventory saved successfully to inventory.json.")
 
 def display_menu():
-    print("\n----------- MENU -----------")
+    print("\n\n----------- MENU -----------")
     print("\n1. Display All Products")
     print("\n2. Add Product")
     print("\n3. Update Stock")
@@ -84,3 +84,32 @@ def display_menu():
     print("\n5. Save Inventory")
     print("\n6. Exit")
     print("\n----------------------------")
+
+    user_input = input("Enter option: ")
+    return(user_input)
+
+print("========================================")
+print("\nINVENTORY MANAGEMENT SYSTEM")
+print("\n========================================")
+
+load_inventory()
+
+while True:
+    user_input = display_menu()
+    
+    if user_input == "1":
+        display_all(inventory)
+    elif user_input == "2":
+        add_product(inventory)
+    elif user_input == "3":
+        update_stock(inventory)
+    elif user_input == "4":
+        search_product(inventory)
+    elif user_input == "5":
+        save_inventory(inventory)
+    elif user_input == "6":
+        print("\n\nSaving inventory before exit...")
+        save_inventory(inventory)
+        print("\nInventory saved successfully.")
+        print("\n\nThank you for using Inventory Management System.")
+        print("Program terminated.")
