@@ -1,101 +1,87 @@
 import json
+inventory = []
 
 # Do validation later e.g. same id, existing product
-inventory = [
-    {"ID": "P001", "Name": "Laptop", "Price": "$1200.00", "Stock": "15"},
-    {"ID": "P002", "Name": "Mouse", "Price": "$25.50", "Stock": "40"},
-    {"ID": "P003", "Name": "Keyboard", "Price": "$45.00", "Stock": "25"}
-]
-
 def add_product(inventory):
-    print("\n\nAdd New Product")
-    id_input = input("\nProduct ID: ")
-    name_input = input("\nProduct Name: ")
-    price_input = input("\nPrice: ")
-    stock_input = input("\nStock Quantity: ")
+    print("\nAdd New Product")
+    id_input = input("Product ID: ")
+    name_input = input("Product Name: ")
+    price_input = input("Price: ")
+    stock_input = input("Stock Quantity: ")
 
-    inventory.append = ({
+    inventory.append({
         "ID": id_input,
         "Name": name_input,
         "Price": price_input,
         "Stock": stock_input
     })
-
-    with open("inventory.json", "w") as file:
-        json.dump(inventory, file)
-        print("\n\nProduct added successfully!\n")
+    print("\nProduct added successfully!")
 
 def update_stock(inventory):
-    print("\n\nUpdate Stock")
-    id_input = input("\nEnter Product ID: ")
+    print("\nUpdate Stock")
+    id_input = input("Enter Product ID: ")
 
     for i in range(len(inventory)):
         if id_input == inventory[i]["ID"]:
-            print("\n\nProduct Found:\n Name: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
+            print("\nProduct Found:\nName: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
             new_stock_input = input("\nNew Stock Quantity: ")
             inventory[i]["Stock"] = new_stock_input
-
-    with open("inventory.json", "a") as file:
-        json.dumps(inventory, file)
-        print("\n\nStock updated successfully!\n")
+    print("\nStock updated successfully!")
 
 def search_product(inventory):
-    print("\n\nSearch Product")
-    id_input = input("\nEnter Product ID: ")
+    print("\nSearch Product")
+    id_input = input("Enter Product ID: ")
     
     for i in range(len(inventory)):
         if id_input == inventory[i]["ID"]:
-            print("\n\nProduct Found")
-            print("\n------------------------------------------------")
-            print("\nID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
-            print("\n------------------------------------------------")
+            print("\nProduct Found")
+            print("------------------------------------------------")
+            print("ID: " + inventory[i]["ID"] + "\nName: " + inventory[i]["Name"] + "\nPrice: " + inventory[i]["Price"] + "\nStock: " + inventory[i]["Stock"])
+            print("------------------------------------------------")
 
 def display_all(inventory):
-    print("\n\nCurrent Inventory")
-    print("\n------------------------------------------------")
-    for i in range(len(inventory)):
-        for product in inventory:
-            print("\nID: " + product[i]["ID"] + " | Name: " + product[i]["Name"] + " | Price: " + product[i]["Price"] + " | Stock: " + product[i]["Stock"])
-    print("\n------------------------------------------------")
+    print("\nCurrent Inventory")
+    print("------------------------------------------------")
+    # for i in range(len(inventory)):
+    for product in inventory:
+        print("ID: " + product["ID"] + " | Name: " + product["Name"] + " | Price: " + product["Price"] + " | Stock: " + product["Stock"])
+    print("------------------------------------------------")
 
 def load_inventory():
     try:
         with open("inventory.json", "r") as file:
             inventory = json.load(file)
-            print("inventory.json found.")
-            print("\nInventory loaded successfully.")
+            print("\ninventory.json found.")
+            print("Inventory loaded successfully.")
     except:
-        inventory = [{}]
+        inventory = []
         print("\ninventory.json not found.")
-        print("\nAn empty inventory is created.")
+        print("An empty inventory is created.")
+    return inventory
 
 def save_inventory(inventory):
     with open("inventory.json", "w") as file:
-        print("\n\nSaving inventory...")
         json.dump(inventory, file)
-        print("\nInventory saved successfully to inventory.json.")
 
 def display_menu():
-    print("\n\n----------- MENU -----------")
-    print("\n1. Display All Products")
-    print("\n2. Add Product")
-    print("\n3. Update Stock")
-    print("\n4. Search Product")
-    print("\n5. Save Inventory")
-    print("\n6. Exit")
-    print("\n----------------------------")
-
-    user_input = input("Enter option: ")
-    return(user_input)
+    print("\n----------- MENU -----------")
+    print("1. Display All Products")
+    print("2. Add Product")
+    print("3. Update Stock")
+    print("4. Search Product")
+    print("5. Save Inventory")
+    print("6. Exit")
+    print("----------------------------")
 
 print("========================================")
-print("\nINVENTORY MANAGEMENT SYSTEM")
-print("\n========================================")
+print("INVENTORY MANAGEMENT SYSTEM")
+print("========================================")
 
-load_inventory()
+inventory = load_inventory()
+display_menu()
 
 while True:
-    user_input = display_menu()
+    user_input = input("\nEnter option: ")
     
     if user_input == "1":
         display_all(inventory)
@@ -106,10 +92,13 @@ while True:
     elif user_input == "4":
         search_product(inventory)
     elif user_input == "5":
+        print("\nSaving inventory...")
         save_inventory(inventory)
+        print("Inventory saved successfully to inventory.json.")
     elif user_input == "6":
-        print("\n\nSaving inventory before exit...")
+        print("\nSaving inventory before exit...")
         save_inventory(inventory)
-        print("\nInventory saved successfully.")
-        print("\n\nThank you for using Inventory Management System.")
+        print("Inventory saved successfully.")
+        print("\nThank you for using Inventory Management System.")
         print("Program terminated.")
+        break
