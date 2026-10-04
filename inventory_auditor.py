@@ -74,3 +74,13 @@ def save_inventory():
         json.dump(inventory, file)
         print("\n\nSaving inventory...")
         print("\nInventory saved successfully to inventory.json.")
+
+def display_menu():
+    print("\n----------- MENU -----------")
+    print("\n1. Display All Products")
+    print("\n2. Add Product")
+    print("\n3. Update Stock")
+    print("\n4. Search Product")
+    print("\n5. Save Inventory")
+    print("\n6. Exit")
+    print("\n----------------------------")
