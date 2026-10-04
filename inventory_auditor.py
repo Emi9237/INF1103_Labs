@@ -29,11 +29,11 @@ def update_stock():
     print("\nUpdate Stock\n")
     id_input = input("\nEnter Product ID: ")
 
-    for product in range(len(inventory)):
-        if id_input == product[0]:
-            print("\nProduct Found:\n Name: " + product[1] + "\nCurrent Stock: " + product[3] + "\n")
-
-    new_stock_input = input("\nNew Stock Quantity: ")
+    for i in range(len(inventory)):
+        if id_input == inventory[i]["ID"]:
+            print("\nProduct Found:\n Name: " + inventory[i]["Name"] + "\nCurrent Stock: " + inventory[i]["Stock"])
+            new_stock_input = input("\nNew Stock Quantity: ")
+            inventory[i]["Stock"] = new_stock_input
 
     with open("inventory.json", "a") as file:
         json.dumps(inventory, file)
