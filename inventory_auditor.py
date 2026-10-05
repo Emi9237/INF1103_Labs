@@ -1,7 +1,6 @@
 import json
 inventory = []
 
-# Do validation later e.g. same id, existing product
 def add_product(inventory):
     print("\nAdd New Product")
     
