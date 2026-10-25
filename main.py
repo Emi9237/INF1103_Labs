@@ -48,7 +48,6 @@ def display_menu():
 
 
 def read_number(prompt, label, cast):
-    """Keep asking until the user enters a valid non-negative number."""
     while True:
         text = input(prompt).replace("$", "").strip()
         if text == "":
