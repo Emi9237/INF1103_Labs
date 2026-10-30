@@ -13,4 +13,4 @@ class PhysicalProduct(Product):
 
     # Methods
     def display_information(self):
-        print(f"ID: {self.get_product_id()} | Name: {self.get_name()} | Price: ${self.get_price()} | Stock: {self.get_stock()} | Weight: {self.__weight}")
+        print(f"ID: {self.get_product_id()} | Name: {self.get_name()} | Price: ${self.get_price():.2f} | Stock: {self.get_stock()} | Weight: {self.__weight}")
