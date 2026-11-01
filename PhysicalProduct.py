@@ -21,4 +21,4 @@ class PhysicalProduct(Product, CanBeShipped):
         return "This product will require physical shipping."
 
     def calculate_shipping_cost(self):
-       print(f"Shipping cost: ${self.__weight * 6.20:.2f}")
+       return self.__weight * 6.20

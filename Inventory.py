@@ -20,9 +20,9 @@ class Inventory:
 
     def display_all(self):
         print("\nCurrent Inventory")
-        print("------------------------------------------------")
+        print("-----------------------------------------------------------------------------------")
         if not self.__products:
             print("There are no products in the inventory.")
         for product in self.__products:
             product.display_information()
-        print("------------------------------------------------")
+        print("-----------------------------------------------------------------------------------")
