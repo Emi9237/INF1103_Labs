@@ -13,4 +13,8 @@ class PhysicalProduct(Product):
 
     # Methods
     def display_information(self):
-        print(f"ID: {self.get_product_id()} | Name: {self.get_name()} | Price: ${self.get_price():.2f} | Stock: {self.get_stock()} | Weight: {self.__weight}")
+        super().display_information()
+        print(f" | Weight: {self.__weight}kg")
+
+    def get_fulfillment_info(self):
+        return "This product will require physical shipping."

@@ -13,4 +13,8 @@ class DigitalProduct(Product):
 
     # Methods
     def display_information(self):
-        print(f"ID: {self.get_product_id()} | Name: {self.get_name()} | Price: ${self.get_price():.2f} | Stock: {self.get_stock()} | Download Size: {self.__download_size}")
+        super().display_information()
+        print(f" | Download Size: {self.__download_size}kb")
+
+    def get_fulfillment_info(self):
+        return "This product will be delivered digitally."
