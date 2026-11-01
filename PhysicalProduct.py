@@ -1,6 +1,7 @@
 from Product import Product
+from CanBeShipped import CanBeShipped
 
-class PhysicalProduct(Product):
+class PhysicalProduct(Product, CanBeShipped):
 
     # Constructor
     def __init__(self, product_id, name, price, stock, weight):
@@ -18,3 +19,6 @@ class PhysicalProduct(Product):
 
     def get_fulfillment_info(self):
         return "This product will require physical shipping."
+
+    def calculate_shipping_cost(self):
+       print(f"Shipping cost: ${self.__weight * 6.20:.2f}")
