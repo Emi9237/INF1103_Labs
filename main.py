@@ -1,5 +1,7 @@
 import json
 from Product import Product
+from PhysicalProduct import PhysicalProduct
+from DigitalProduct import DigitalProduct
 from Inventory import Inventory
 
 FILE_NAME = "inventory.json"
@@ -17,7 +19,10 @@ def load_inventory():
 
     print("\ninventory.json found.")
     for item in data:
-        product = Product(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]))
+        if item.get("Type") == "physical":
+            product = PhysicalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), float(item["Weight"]))
+        else:
+            product = DigitalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), item["Download_Size"])
         inventory.add_product(product)
     print("Inventory loaded successfully.")
     return inventory
@@ -26,15 +31,21 @@ def load_inventory():
 def save_inventory(inventory):
     data = []
     for product in inventory.get_products():
-        data.append({
+        item = {
             "ID": product.get_product_id(),
             "Name": product.get_name(),
             "Price": product.get_price(),
             "Stock": product.get_stock()
-        })
+        }
+        if isinstance(product, PhysicalProduct):
+            item["Type"] = "physical"
+            item["Weight"] = product.get_weight()
+        elif isinstance(product, DigitalProduct):
+            item["Type"] = "digital"
+            item["Download_Size"] = product.get_download_size()
+        data.append(item)
     with open(FILE_NAME, "w") as file:
         json.dump(data, file, indent=4)
-
 
 def display_menu():
     print("\n----------- MENU -----------")
@@ -45,7 +56,6 @@ def display_menu():
     print("5. Save Inventory")
     print("6. Exit")
     print("----------------------------")
-
 
 def read_number(prompt, label, cast):
     while True:
@@ -63,9 +73,17 @@ def read_number(prompt, label, cast):
             continue
         return value
 
-
 def add_product_menu(inventory):
     print("\nAdd New Product")
+
+    while True:
+        product_type = input("Select a product type, physical or digital: ").strip().lower()
+        if product_type == "":
+            print("\nPlease input a Product Type.\n")
+        elif product_type not in ("physical", "digital"):
+            print("\nPlease enter 'physical' or 'digital'.\n")
+        else:
+            break
 
     while True:
         product_id = input("Product ID: ")
@@ -88,10 +106,15 @@ def add_product_menu(inventory):
     price = read_number("Price: ", "Price", float)
     stock = read_number("Stock Quantity: ", "Stock quantity", int)
 
-    product = Product(product_id, name, price, stock)
+    if product_type == "physical":
+        weight = read_number("Weight: ", "Weight", float)
+        product = PhysicalProduct(product_id, name, price, stock, weight)
+    else:
+        download_size = read_number("Download Size: ", "Download Size", float)
+        product = DigitalProduct(product_id, name, price, stock, download_size)
+
     inventory.add_product(product)
     print("\nProduct added successfully!")
-
 
 def update_stock_menu(inventory):
     print("\nUpdate Stock")
@@ -131,15 +154,21 @@ def search_product_menu(inventory):
         return
 
     print("\nProduct Found")
-    print("------------------------------------------------")
-    print(f"ID: {product.get_product_id()}")
-    print(f"Name: {product.get_name()}")
-    print(f"Price: ${product.get_price():.2f}")
-    print(f"Stock: {product.get_stock()}")
-    print("------------------------------------------------")
+    print("-----------------------------------------------------------------------------------")
+    product.display_information()
+    print("-----------------------------------------------------------------------------------")
 
 
 def main():
+    # physical_item = PhysicalProduct("P100", "Laptop", 1299.99, 5, 5)
+    # physical_item.display_information()
+    # print(physical_item.get_fulfillment_info())
+    # physical_item.calculate_shipping_cost()
+
+    # digital_item = DigitalProduct("P104", "Laptop", 1299.99, 5, "100")
+    # digital_item.display_information()
+    # print(digital_item.get_fulfillment_info())
+
     print("========================================")
     print("INVENTORY MANAGEMENT SYSTEM")
     print("========================================")
