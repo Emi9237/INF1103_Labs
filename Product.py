@@ -27,7 +27,7 @@ class Product(ABC):
         return self.supplier
 
     # Methods
-    def update_stock(self, quantity) -> None:
+    def update_stock(self, quantity: int) -> None:
         if quantity < 0:
             raise ValueError("\nNegative numbers are not valid. Please input a valid Stock quantity.\n")
         self.__stock = quantity
