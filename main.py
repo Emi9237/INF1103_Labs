@@ -1,6 +1,7 @@
 import json
 from Product import Product
 from PhysicalProduct import PhysicalProduct
+from Supplier import Supplier
 from DigitalProduct import DigitalProduct
 from Inventory import Inventory
 
@@ -160,15 +161,6 @@ def search_product_menu(inventory):
 
 
 def main():
-    # physical_item = PhysicalProduct("P100", "Laptop", 1299.99, 5, 5)
-    # physical_item.display_information()
-    # print(physical_item.get_fulfillment_info())
-    # physical_item.calculate_shipping_cost()
-
-    # digital_item = DigitalProduct("P104", "Laptop", 1299.99, 5, "100")
-    # digital_item.display_information()
-    # print(digital_item.get_fulfillment_info())
-
     print("========================================")
     print("INVENTORY MANAGEMENT SYSTEM")
     print("========================================")
