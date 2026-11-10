@@ -1,0 +1,35 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Local environment variables
+.env
+
+# IDE settings
+.vscode/
+.idea/
+
+# Others
+Inventory.py
+Product.py
+PhysicalProduct.py
+DigitalProduct.py
+CanBeShipped.py
+Supplier.py
+Order.py
+OrderLine.py
+
+dockerfile
+inventory.json
+log.txt
+Predict First.docx
+~$edict First.docx
+~WRL0005.tmp
+
+UML Class Diagram.png
+container_run.jpg
+docker_mount_run.jpg
