@@ -3,7 +3,7 @@ from Supplier import Supplier
 
 class Product(ABC):
     # Constructor
-    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier):
+    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier) -> None:
         self.__product_id = product_id
         self.__name = name
         self.__price = price
