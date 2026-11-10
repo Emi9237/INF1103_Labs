@@ -4,6 +4,8 @@ from PhysicalProduct import PhysicalProduct
 from Supplier import Supplier
 from DigitalProduct import DigitalProduct
 from Inventory import Inventory
+from Order import Order
+from OrderLine import OrderLine
 
 FILE_NAME = "inventory.json"
 
