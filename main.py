@@ -23,9 +23,9 @@ def load_inventory():
     print("\ninventory.json found.")
     for item in data:
         if item.get("Type") == "physical":
-            product = PhysicalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), float(item["Weight"]))
+            product = PhysicalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), float(item["Weight"]), item["Supplier"])
         else:
-            product = DigitalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), item["Download_Size"])
+            product = DigitalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), item["Download_Size"], item["Supplier"])
         inventory.add_product(product)
     print("Inventory loaded successfully.")
     return inventory
@@ -43,9 +43,11 @@ def save_inventory(inventory):
         if isinstance(product, PhysicalProduct):
             item["Type"] = "physical"
             item["Weight"] = product.get_weight()
+            item["Supplier"] = product.get_supplier()
         elif isinstance(product, DigitalProduct):
             item["Type"] = "digital"
             item["Download_Size"] = product.get_download_size()
+            item["Supplier"] = product.get_supplier()
         data.append(item)
     with open(FILE_NAME, "w") as file:
         json.dump(data, file, indent=4)
@@ -109,12 +111,19 @@ def add_product_menu(inventory):
     price = read_number("Price: ", "Price", float)
     stock = read_number("Stock Quantity: ", "Stock quantity", int)
 
+    while True:
+        supplier = input("Supplier: ")
+        if supplier == "":
+            print("\nPlease input a Supplier.\n")
+        else:
+            break
+
     if product_type == "physical":
         weight = read_number("Weight: ", "Weight", float)
-        product = PhysicalProduct(product_id, name, price, stock, weight)
+        product = PhysicalProduct(product_id, name, price, stock, weight, supplier)
     else:
         download_size = read_number("Download Size: ", "Download Size", float)
-        product = DigitalProduct(product_id, name, price, stock, download_size)
+        product = DigitalProduct(product_id, name, price, stock, download_size, supplier)
 
     inventory.add_product(product)
     print("\nProduct added successfully!")
