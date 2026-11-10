@@ -29,8 +29,13 @@ class Inventory:
     def display_all(self) -> None:
         print("\nCurrent Inventory")
         print("-----------------------------------------------------------------------------------")
-        if not self.__products:
+        if not self.products:
             print("There are no products in the inventory.")
-        for product in self.__products:
+        for product in self.products:
             product.display_information()
+            print(product.get_fulfilment_info())
         print("-----------------------------------------------------------------------------------")
+
+    def show_product_details(product: Product) -> None:
+        product.display_information()
+        print(product.get_fulfilment_info())
