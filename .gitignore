@@ -15,9 +15,11 @@ venv/
 
 # Others
 Inventory.py
+ProductFactory.py
 Product.py
 PhysicalProduct.py
 DigitalProduct.py
+DiscountStrategy.py
 CanBeShipped.py
 Supplier.py
 Order.py
@@ -25,9 +27,13 @@ OrderLine.py
 
 dockerfile
 inventory.json
+products.csv
 log.txt
 Predict First Answers.docx
 
 UML Class Diagram.png
 container_run.jpg
 docker_mount_run.jpg
+
+~WRL0005.tmp
+~$edict First Answers.docx
