@@ -1,4 +1,5 @@
 import json
+from ProductFactory import ProductFactory
 from Product import Product
 from PhysicalProduct import PhysicalProduct
 from Supplier import Supplier
@@ -23,9 +24,9 @@ def load_inventory():
     print("\ninventory.json found.")
     for item in data:
         if item.get("Type") == "physical":
-            product = PhysicalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), float(item["Weight"]), item["Supplier"])
+            product = ProductFactory.create("physical", item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), item["Supplier"], weight=float(item["Weight"]))
         else:
-            product = DigitalProduct(item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), item["Download_Size"], item["Supplier"])
+            product = ProductFactory.create("digital", item["ID"], item["Name"], float(str(item["Price"]).replace("$", "")), int(item["Stock"]), item["Supplier"], download_size=item["Download_Size"])
         inventory.add_product(product)
     print("Inventory loaded successfully.")
     return inventory
@@ -118,12 +119,12 @@ def add_product_menu(inventory):
         else:
             break
 
-    if product_type == "physical":
-        weight = read_number("Weight: ", "Weight", float)
-        product = PhysicalProduct(product_id, name, price, stock, weight, supplier)
-    else:
-        download_size = read_number("Download Size: ", "Download Size", float)
-        product = DigitalProduct(product_id, name, price, stock, download_size, supplier)
+        if product_type == "physical":
+            weight = read_number("Weight: ", "Weight", float)
+            product = ProductFactory.create(product_type, product_id, name, price, stock, supplier, weight=weight)
+        else:
+            download_size = read_number("Download Size: ", "Download Size", float)
+            product = ProductFactory.create(product_type, product_id, name, price, stock, supplier, download_size=download_size)
 
     inventory.add_product(product)
     print("\nProduct added successfully!")
