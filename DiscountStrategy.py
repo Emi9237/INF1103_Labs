@@ -10,7 +10,7 @@ class NoDiscount(DiscountStrategy):
         return total
 
 class PercentageDiscount(DiscountStrategy):
-    def __init__(self, percentage: float):
+    def __init__(self, percentage: float) -> None:
         self.percentage = percentage
 
     def apply(self, total: float) -> float:
@@ -24,7 +24,7 @@ class StudentDiscount(DiscountStrategy):
         return total * (1 - self.percentage/100)
 
 class BulkDiscount(DiscountStrategy):
-    def __init__(self, threshold: float, amount: float):
+    def __init__(self, threshold: float, amount: float) -> None:
         self.threshold = threshold
         self.amount = amount
 
