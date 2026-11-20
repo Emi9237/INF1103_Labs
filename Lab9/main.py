@@ -40,7 +40,7 @@ def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None:
     else:
         with file:
             reader = csv.reader(file)
-            next(reader)  # skip header row
+            next(reader, None)  # skip header row
             loaded = 0
             for row in reader:
                 try:
@@ -153,12 +153,12 @@ def add_product_menu(inventory):
         else:
             break
 
-        if product_type == "physical":
-            weight = read_number("Weight: ", "Weight", float)
-            product = ProductFactory.create(product_type, product_id, name, price, stock, supplier, weight=weight)
-        else:
-            download_size = read_number("Download Size: ", "Download Size", float)
-            product = ProductFactory.create(product_type, product_id, name, price, stock, supplier, download_size=download_size)
+    if product_type == "physical":
+        weight = read_number("Weight: ", "Weight", float)
+        product = ProductFactory.create(product_type, product_id, name, price, stock, supplier, weight=weight)
+    else:
+        download_size = read_number("Download Size: ", "Download Size", float)
+        product = ProductFactory.create(product_type, product_id, name, price, stock, supplier, download_size=download_size)
 
     inventory.add_product(product)
     print("\nProduct added successfully!")
@@ -239,4 +239,5 @@ def main():
         else:
             print("\nInvalid option. Please enter a number from 1 to 6.")
 
-main()
+if __name__ == "__main__":
+    main()
