@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: All Labs
+        working-directory: Lab9
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
