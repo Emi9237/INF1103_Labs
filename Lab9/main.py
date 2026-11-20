@@ -44,6 +44,7 @@ def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None:
             loaded = 0
             for row in reader:
                 try:
+                    row = [value.strip() for value in row]
                     product_type, product_id, name, price, stock_quantity = row
                     product = ProductFactory.create(product_type, product_id, name, float(price), int(stock_quantity), supplier)
                     inventory.add_product(product)
